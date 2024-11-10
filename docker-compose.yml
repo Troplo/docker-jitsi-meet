@@ -180,13 +180,16 @@ services:
 
     # XMPP server
     prosody:
-        image: jitsi/prosody:${JITSI_IMAGE_VERSION:-unstable}
+        image: jitsi/prosody:latest
         restart: ${RESTART_POLICY:-unless-stopped}
         expose:
             - '${XMPP_PORT:-5222}'
             - '${PROSODY_S2S_PORT:-5269}'
             - '5347'
             - '${PROSODY_HTTP_PORT:-5280}'
+            - '5280'
+        ports:
+            - '5280:5280' 
         volumes:
             - ${CONFIG}/prosody/config:/config:Z
             - ${CONFIG}/prosody/prosody-plugins-custom:/prosody-plugins-custom:Z
